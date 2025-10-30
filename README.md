@@ -30,20 +30,31 @@ O objetivo principal é consumir a **API pública dos Correios (ViaCEP)** para o
 
 **Requisição**
 
-```
+POST /api/matricula
 
-GET /api/cep/01001000
+```json
+{
+  "nome": "Tiburcio",
+  "dataNascimento": "1998-09-23",
+  "cpf": "07591669001",
+  "cep": "01001-000"
+}
 
 ```
 
 **Resposta**
 ```json
 {
-  "cep": "01001-000",
-  "logradouro": "Praça da Sé",
-  "bairro": "Sé",
-  "cidade": "São Paulo",
-  "uf": "SP"
+  "nome": "Tiburcio",
+  "dataNascimento": "1998-09-23",
+  "cpf": "07591669001",
+  "endereco": {
+    "cep": "01001-000",
+    "logradouro": "Praça da Sé",
+    "bairro": "Sé",
+    "estado": "São Paulo",
+    "localidade": "São Paulo"
+  }
 }
 
 ```
