@@ -4,6 +4,7 @@ import com.escola.matriculas.domain.dto.AlunoDetails;
 import com.escola.matriculas.domain.dto.AlunoRequestDTO;
 import com.escola.matriculas.domain.dto.AlunoResponseDTO;
 import com.escola.matriculas.service.AlunoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -35,9 +36,9 @@ public class AlunoController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> creatAluno(@RequestBody AlunoRequestDTO alunoRequestDTO){
+    public ResponseEntity<Object> creatAluno(@RequestBody @Valid AlunoRequestDTO alunoRequestDTO){
         AlunoDetails aluno = alunoService.alunoEnderecoCompleto(alunoRequestDTO);
-        kafkaTemplate.send("cursos-topico", aluno);
+        //kafkaTemplate.send("cursos-topico", aluno);
         return ResponseEntity.ok().body(aluno);
     }
 }
