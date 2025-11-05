@@ -26,6 +26,22 @@ O objetivo principal é consumir a **API pública dos Correios (ViaCEP)** para o
 
 ---
 
+## ⚙️ Funcionalidades Implementadas
+
+📌 Consulta de CEP via API ViaCEP
+
+📌 Publicação de mensagens no tópico Kafka cursos-topico (fase de testes)
+
+📌 Swagger / OpenAPI disponível em /swagger-ui/index.html
+
+📌 Tratamento global de exceções com @ControllerAdvice
+
+📌 Validações de entrada usando Bean Validation (@NotBlank)
+
+📌 Projeto Dockerizado com Dockerfile e Docker Compose
+
+---
+
 ## 🧠 Exemplo de Requisição
 
 **Requisição**
@@ -71,9 +87,9 @@ POST /api/matricula
     
     -   Spring Web
         
-    -   Spring Kafka
+    -   Spring Kafka (fase de testes)
         
-    -   Spring Validation _(em andamento)_
+    -   Spring Validation
         
     -   Spring Security _(a ser implementado)_
         
@@ -85,7 +101,7 @@ POST /api/matricula
     
 -   🧪 **JUnit 5 / Mockito** _(a ser implementado)_
     
--   📘 **Swagger / OpenAPI** _(a ser adicionado)_
+-   📘 **Swagger / OpenAPI**
     
 -   🗄️ **PostgreSQL (AWS RDS)** _(planejado para o futuro)_
     
@@ -107,7 +123,9 @@ microservices-kafka-viacep/
 │   │   │   ├── producer/        # Envio de mensagens para Kafka
 │   │   │   └── domain/dto/      # Entidades e DTOs
 │   │   └── resources/
-│   │       └── application-dev.properties  # Configurações da aplicação
+│   │   │   └── application-docker.properties  # Configurações da aplicação - perfil docker
+│   │   │   └── application-dev.properties  # Configurações da aplicação - perfil dev
+│   │   │   └── application.properties  # Configurações da aplicação - perfil prod
 └── pom.xml
 
 ```
@@ -144,24 +162,17 @@ docker-compose up --build
 
 ### ⚡ Funcionais
 
--   Implementar **microserviço consumidor** para processar mensagens Kafka
+-   Implementar **microserviço consumidor** para processar mensagens Kafka (Fase de testes)
     
 -   Persistir dados em **AWS RDS (PostgreSQL)**
     
 
 ### 🧩 Técnicas
-
--   **Tratamento de exceções global** com `@ControllerAdvice`
     
--   **Validações de CEP** com Bean Validation (`@NotNull`, `@Pattern`)
-    
--   **Documentação Swagger / OpenAPI** em `/swagger-ui.html`
     
 -   **Testes unitários e mocks** com JUnit 5 e Mockito
     
 -   **Autenticação JWT** via Spring Security
-    
--   Configuração de **profiles dev/prod** e variáveis de ambiente
     
 
 ----------
