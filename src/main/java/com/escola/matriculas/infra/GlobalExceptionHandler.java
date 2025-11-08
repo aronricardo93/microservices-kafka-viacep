@@ -1,6 +1,6 @@
 package com.escola.matriculas.infra;
 
-import com.escola.matriculas.exceptions.CepNotFoundException;
+import com.escola.matriculas.exceptions.ZipCodeNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,7 +13,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler
-    private ResponseEntity<String> cepNotFoundHandler(CepNotFoundException exception){
+    private ResponseEntity<String> cepNotFoundHandler(ZipCodeNotFoundException exception){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 

@@ -1,5 +1,6 @@
 package com.escola.matriculas.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,15 +12,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnderecoModel {
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String cep;
-    private String logradouro;
-    private String bairro;
-    private String localidade;
-    private String uf;
-    @OneToOne(mappedBy = "endereco")
-    private AlunoModel alunoModel;
+    private String zipCode;
+    private String street;
+    private String neighborhood;
+    private String city;
+    private String state;
+    @OneToOne(mappedBy = "address")
+    private Student student;
 }

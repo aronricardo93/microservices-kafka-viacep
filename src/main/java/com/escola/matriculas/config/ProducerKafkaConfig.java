@@ -1,7 +1,5 @@
 package com.escola.matriculas.config;
 
-import com.escola.matriculas.domain.dto.AlunoDetails;
-import com.escola.matriculas.domain.dto.AlunoRequestDTO;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;

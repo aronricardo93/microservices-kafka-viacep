@@ -1,0 +1,12 @@
+package com.escola.matriculas.domain.enums;
+
+public enum TechnicalCourse {
+    ADMINISTRATION,
+    INFORMATION_TECHNOLOGY,
+    LOGISTICS,
+    CIVIL_CONSTRUCTION,
+    ELECTRICAL_ENGINEERING,
+    ELECTROMECHANICAL_ENGINEERING,
+    CHEMISTRY,
+    OCCUPATIONAL_SAFETY
+}

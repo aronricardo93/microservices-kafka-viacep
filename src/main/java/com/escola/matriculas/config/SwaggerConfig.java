@@ -13,9 +13,9 @@ public class SwaggerConfig {
     public OpenAPI docAPI(){
         return new OpenAPI()
                 .info(new Info()
-                        .title("API de Matriculas")
+                        .title("Enrollment API")
                         .version("1.0.0")
-                        .description("Documentação da API de gerenciamento de alunos")
+                        .description("Student Management API Documentation")
                         .contact(new Contact()
                                 .name("Aron Ricardo - Backend Java")
                                 .url("https://www.linkedin.com/in/aronricardo")
