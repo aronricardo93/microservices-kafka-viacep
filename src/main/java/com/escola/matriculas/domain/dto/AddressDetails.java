@@ -1,11 +1,9 @@
 package com.escola.matriculas.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class AddressDetails {
 
     @JsonProperty("cep")
