@@ -18,7 +18,7 @@ public class ZipCodeService {
                 .build();
     }
 
-    public AddressDetails requestCEP(String zipCode){
+    public AddressDetails requestZipCode(String zipCode){
         AddressDetails addressDetails = webClient.get()
                                             .uri("/{zipCode}/json",zipCode)
                                             .retrieve()

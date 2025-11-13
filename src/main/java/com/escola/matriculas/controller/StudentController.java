@@ -24,18 +24,6 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @Operation(description = "List all students")
-    @GetMapping("/students")
-    public ResponseEntity<List<StudentResponseDTO>> getStudents(){
-        return ResponseEntity.ok().body(studentService.getAllStudents());
-    }
-
-    @Operation(description = "Search for student by ID.")
-    @GetMapping("/student/{id}")
-    public ResponseEntity<StudentResponseDTO> getStudent(@PathVariable Long id){
-        return ResponseEntity.ok().body(studentService.getStudentById(id));
-    }
-
     @Operation(description = "Create a student and search for their full address using the zip code.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Student successfully enrolled!"),
@@ -43,7 +31,7 @@ public class StudentController {
     })
     @PostMapping
     public ResponseEntity<Object> creatAluno(@RequestBody @Valid StudentRequestDTO studentRequestDTO){
-        StudentDetails student = studentService.studentFullAddress(studentRequestDTO);
+        StudentResponseDTO student = studentService.studentFullAddress(studentRequestDTO);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(student);
     }
 }

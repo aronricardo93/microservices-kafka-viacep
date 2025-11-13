@@ -3,53 +3,41 @@ package com.escola.matriculas.service;
 import com.escola.matriculas.domain.dto.StudentDetails;
 import com.escola.matriculas.domain.dto.StudentRequestDTO;
 import com.escola.matriculas.domain.dto.StudentResponseDTO;
-import com.escola.matriculas.domain.model.Student;
+import com.escola.matriculas.domain.enums.Status;
 import com.escola.matriculas.mapper.StudentMapper;
-import com.escola.matriculas.repositories.StudentRepository;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.UUID;
 
 @Service
 public class StudentService {
 
-    private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
     private final ZipCodeService zipCodeService;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    public StudentService(StudentRepository  studentRepository, StudentMapper studentMapper, ZipCodeService zipCodeService, KafkaTemplate<String, Object> kafkaTemplate){
-        this.studentRepository = studentRepository;
+    public StudentService(StudentMapper studentMapper, ZipCodeService zipCodeService, KafkaTemplate<String, Object> kafkaTemplate) {
         this.studentMapper = studentMapper;
         this.zipCodeService = zipCodeService;
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public List<StudentResponseDTO> getAllStudents(){
-        return studentMapper.toListDTO(studentRepository.findAll());
-    }
+    public StudentResponseDTO studentFullAddress(StudentRequestDTO studentRequestDTO) {
+        String protocol = UUID.randomUUID().toString();
 
-    public StudentResponseDTO getStudentById(Long id){
-        Student student = studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student with ID " + id + " not found!"));
-        return studentMapper.toDTO(student);
-    }
-
-    public StudentDetails studentFullAddress(StudentRequestDTO studentRequestDTO){
         StudentDetails studentDetails = new StudentDetails();
         studentDetails.setName(studentRequestDTO.name());
-        studentDetails.setBirthDate(studentRequestDTO.bithDate());
+        studentDetails.setBirthDate(studentRequestDTO.birthDate());
         studentDetails.setCpf(studentRequestDTO.cpf());
+        studentDetails.setProtocol(protocol);
+        studentDetails.setStatus(Status.PENDING);
+        studentDetails.setTechnicalCourse(studentRequestDTO.technicalCourse());
 
-        studentDetails.setAddress(zipCodeService.requestCEP(studentRequestDTO.zipCode()));
+        studentDetails.setAddress(zipCodeService.requestZipCode(studentRequestDTO.zipCode()));
 
-        kafkaTemplate.send("cursos-topico", studentDetails);
+        kafkaTemplate.send("enrollment-topic", studentDetails);
 
-        return studentDetails;
-    }
-
-    public void deleteAluno(Long id){
-        studentRepository.deleteById(id);
+        return studentMapper.toResponse(studentDetails);
     }
 }
